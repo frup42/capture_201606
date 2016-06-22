@@ -1,0 +1,22 @@
+public with sharing class AwesomeService
+{
+	//Don't match to 'Sat' - instead format a known Saturday, to avoid localisation issues
+	private static final String FMT = 'EEE';
+	private static final String SATURDAY = Datetime.newInstance(1970, 1, 3).format(FMT);
+
+	private static IDiscoService disco = (IDiscoService)Application.Service.newInstance(IDiscoService.class);
+	
+	public static void getDownSaturdayNight(User u, Datetime now)
+	{
+		if (now.format('FMT') == SATURDAY
+			&& u.LikesToParty__c //(everybody does)
+			&& u.CantWaitForTheWeekend__c)
+		{
+			disco.getDown(u);
+		}
+		else
+		{
+			disco.notifyUser('Maybe some other time');
+		}
+	}
+}
