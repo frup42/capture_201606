@@ -1,5 +1,5 @@
 public interface IDiscoService
 {
 	void getDown(User u);
-	void notifyUser(String message);
+	void notifyUser(DiscoService.Event event);
 }

@@ -8,7 +8,7 @@ public with sharing class AwesomeService
 	
 	public static void getDownSaturdayNight(User u, Datetime now)
 	{
-		if (now.format('FMT') == SATURDAY
+		if (now.format(FMT) == SATURDAY
 			&& u.LikesToParty__c //(everybody does)
 			&& u.CantWaitForTheWeekend__c)
 		{
@@ -16,7 +16,12 @@ public with sharing class AwesomeService
 		}
 		else
 		{
-			disco.notifyUser('Maybe some other time');
+			DiscoService.Event event = new DiscoService.Event();
+			event.EventTarget = u;
+			event.EventType = 'Uncool';
+			event.Message = 'It\'s hip to be a square';
+
+			disco.notifyUser(event);
 		}
 	}
 }

@@ -5,8 +5,15 @@ public class DiscoService implements IDiscoService
 		System.assert(false, 'Not implemented');
 	}
 
-	public void notifyUser(String message)
+	public void notifyUser(DiscoService.Event event)
 	{
 		System.assert(false, 'Not implemented');
+	}
+
+	public class Event
+	{
+		public User EventTarget;
+		public String EventType;
+		public String Message;
 	}
 }

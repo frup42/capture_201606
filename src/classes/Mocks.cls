@@ -15,9 +15,9 @@ public class Mocks
 			mocks.mockVoidMethod(this, 'getDown', new List<Type>{ System.Type.forName('User') }, new List<Object> { u });
 		}
 		
-		public void notifyUser(String message)
+		public void notifyUser(DiscoService.Event event)
 		{
-			mocks.mockVoidMethod(this, 'notifyUser', new List<Type>{ System.Type.forName('String') }, new List<Object> { message });
+			mocks.mockVoidMethod(this, 'notifyUser', new List<Type>{ System.Type.forName('DiscoService.Event') }, new List<Object> { event });
 		}
 	}
 }
