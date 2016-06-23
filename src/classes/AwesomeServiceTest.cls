@@ -55,6 +55,33 @@ private class AwesomeServiceTest
 	}
 
 	@isTest
+	private static void getDownSaturdayNight_doesntGetDown_OnASchoolNight_WithEquals()
+	{
+		fflib_ApexMocks mocks = new fflib_ApexMocks();
+		IDiscoService mockDisco = new Mocks.DiscoService(mocks);
+		Application.Service.setMock(IDiscoService.class, mockDisco);
+
+		//Given
+		User u = new User(
+			FirstName = 'Buzz',
+			LastName = 'Killington',
+			LikesToParty__c = false,
+			CantWaitForTheWeekend__c = false
+		);
+		
+		//When
+		AwesomeService.getDownSaturdayNight(u, KNOWN_SUNDAY);
+
+		//Then
+		DiscoService.Event expected = new DiscoService.Event();
+		expected.EventTarget = u;
+		expected.EventType = 'Uncool';
+		expected.Message = 'It\'s hip to be a square';
+
+		((IDiscoService)mocks.verify(mockDisco)).notifyUser(expected);
+	}
+
+	@isTest
 	private static void getDownSaturdayNight_doesntGetDown_OnASchoolNight_WithMatchers()
 	{
 		fflib_ApexMocks mocks = new fflib_ApexMocks();
